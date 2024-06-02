@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
+import ClientOnly from "./components/ClientOnly";
+import Modal from "./components/modals/Modal";
+import ReduxProviders from "./store/ReduxProvider";
+import RegisterModal from "./components/modals/RegisterModal";
+import ToasterProvider from "./provider/ToasterProvider";
 
 const inter = Nunito({ subsets: ["latin"] });
 
@@ -18,8 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        {children}
+        <ReduxProviders>
+          <ClientOnly>
+            <ToasterProvider />
+            <RegisterModal />
+            <Navbar />
+          </ClientOnly>
+          {children}
+        </ReduxProviders>
       </body>
     </html>
   );
