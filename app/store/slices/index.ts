@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import registerModalSlice from "./registerModalSlice";
+import authModalSlice from "./authModalSlice";
 
 const rootReducer = combineReducers({
-  registerModal: registerModalSlice.reducer,
+  authModal: authModalSlice.reducer,
 });
 
 export default rootReducer;

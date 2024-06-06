@@ -7,6 +7,7 @@ import Modal from "./components/modals/Modal";
 import ReduxProviders from "./store/ReduxProvider";
 import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./provider/ToasterProvider";
+import getCurrentUser from "./actions/getCurrentUser";
 
 const inter = Nunito({ subsets: ["latin"] });
 
@@ -15,11 +16,13 @@ export const metadata: Metadata = {
   description: "AirbnbClone",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const currentUser = await getCurrentUser();
+
   return (
     <html lang="en">
       <body className={inter.className}>

@@ -1,14 +1,27 @@
 "use client";
 
-import { Fragment, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import Avatar from "../Avatar";
-import MenuItem from "./MenuItem";
-import { useRegisterModal } from "../../hooks/useRegisterModal";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const UserMenu: React.FC = () => {
+import { useAuthModal } from "@/app/hooks/useAuthModal";
+
+import MenuItem from "./MenuItem";
+import Avatar from "../Avatar";
+import { User } from "next-auth";
+
+interface UserMenuProps {
+  currentUser?: User | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  const router = useRouter();
+
+  const loginModal = useAuthModal();
+  const registerModal = useAuthModal();
+
   const [isOpen, setIsOpen] = useState(false);
-  const registerModal = useRegisterModal();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -18,7 +31,6 @@ const UserMenu: React.FC = () => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
           className="
             hidden
             md:block
@@ -54,7 +66,7 @@ const UserMenu: React.FC = () => {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src={""} />
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
@@ -74,15 +86,34 @@ const UserMenu: React.FC = () => {
           "
         >
           <div className="flex flex-col cursor-pointer">
-            <Fragment>
-              <MenuItem label="Login" onClick={() => {}} />
-              <MenuItem label="Sign up" onClick={registerModal.onOpen} />
-              <MenuItem label="My trips" onClick={() => {}} />
-              <MenuItem label="My favorites" onClick={() => {}} />
-              <MenuItem label="My reservations" onClick={() => {}} />
-              <MenuItem label="My properties" onClick={() => {}} />
-              <MenuItem label="Airbnb your home" onClick={() => {}} />
-            </Fragment>
+            {currentUser ? (
+              <>
+                <MenuItem
+                  label="My trips"
+                  onClick={() => router.push("/trips")}
+                />
+                <MenuItem
+                  label="My favorites"
+                  onClick={() => router.push("/favorites")}
+                />
+                <MenuItem
+                  label="My reservations"
+                  onClick={() => router.push("/reservations")}
+                />
+                <MenuItem
+                  label="My properties"
+                  onClick={() => router.push("/properties")}
+                />
+                <MenuItem label="Airbnb your home" onClick={() => {}} />
+                <hr />
+                <MenuItem label="Logout" onClick={() => signOut()} />
+              </>
+            ) : (
+              <>
+                <MenuItem label="Login" onClick={loginModal.onOpen} />
+                <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+              </>
+            )}
           </div>
         </div>
       )}
