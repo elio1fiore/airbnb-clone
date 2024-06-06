@@ -4,22 +4,21 @@ import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
-import { useAuthModal } from "@/app/hooks/useAuthModal";
-
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
-import { User } from "next-auth";
+import { SafeUser } from "@/app/types";
+import { useRegisterModal } from "@/app/hooks/useRegisterModal";
+import { useLoginModal } from "@/app/hooks/useLoginModel";
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const router = useRouter();
 
-  const loginModal = useAuthModal();
-  const registerModal = useAuthModal();
+  const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
 
   const [isOpen, setIsOpen] = useState(false);
 

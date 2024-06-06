@@ -12,10 +12,11 @@ import Input from "../inputs/input";
 import Heading from "../Heading";
 import toast from "react-hot-toast";
 import Button from "../Button";
-import { useAuthModal } from "@/app/hooks/useAuthModal";
+import { signIn } from "next-auth/react";
+import { useRegisterModal } from "@/app/hooks/useRegisterModal";
 
 export default function RegisterModal() {
-  const registerModal = useAuthModal();
+  const registerModal = useRegisterModal();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -91,7 +92,7 @@ export default function RegisterModal() {
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div
         className="

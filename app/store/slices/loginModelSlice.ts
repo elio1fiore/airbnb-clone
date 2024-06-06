@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const authModalSlice = createSlice({
-  name: "authModal",
+const loginModalSlice = createSlice({
+  name: "loginModal",
   initialState: { isOpen: false },
   reducers: {
     openModal(state) {
@@ -13,6 +13,6 @@ const authModalSlice = createSlice({
   },
 });
 
-export const { openModal, closeModal } = authModalSlice.actions;
+export const { openModal, closeModal } = loginModalSlice.actions;
 
-export default authModalSlice;
+export default loginModalSlice;
