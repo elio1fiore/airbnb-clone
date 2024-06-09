@@ -11,6 +11,8 @@ import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
 import { useLoginModal } from "@/app/hooks/useLoginModel";
+import ListingReservation from "@/app/components/listing/ListingReservation";
+import { Range } from "react-date-range";
 
 const initialDateRange = {
   startDate: new Date(),
