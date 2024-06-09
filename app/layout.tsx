@@ -9,6 +9,8 @@ import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./provider/ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
 import LoginModal from "./components/modals/LoginModal";
+import SearchModal from "./components/modals/SearchModal";
+import RentModal from "./components/modals/RentModal";
 
 const inter = Nunito({ subsets: ["latin"] });
 
@@ -27,15 +29,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProviders>
-          <ClientOnly>
-            <ToasterProvider />
-            <RegisterModal />
-            <LoginModal />
-            <Navbar currentUser={currentUser} />
-          </ClientOnly>
-          <div className="pb-20 pt-28">{children}</div>
-        </ReduxProviders>
+        <ClientOnly>
+          <ToasterProvider />
+          <LoginModal />
+          <RegisterModal />
+          <SearchModal />
+          <RentModal />
+          <Navbar currentUser={currentUser} />
+        </ClientOnly>
+        <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>
   );
